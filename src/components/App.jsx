@@ -6,6 +6,7 @@ import { fetchPokemons, setSearchTerm } from '../redux/pokemonSlice';
 import PokemonCard from './PokemonCard';
 import SearchBar from './SearchBar';
 import '../styles/App.css';
+import { POKEMON_API } from '../utilities/constants';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const App = () => {
   const totalPages = useSelector((state) => state.pokemon.totalPages);
 
   useEffect(() => {
-    dispatch(fetchPokemons({ url: 'https://pokeapi.co/api/v2/pokemon?limit=20', page: 1 }));
+    dispatch(fetchPokemons({ url: `${POKEMON_API}`, page: 1 }));
   }, [dispatch]);
 
   const handleNext = () => {
@@ -35,7 +36,7 @@ const App = () => {
   };
 
   const handlePageChange = (page) => {
-    dispatch(fetchPokemons({ url: `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${(page - 1) * 20}`, page }));
+    dispatch(fetchPokemons({ url: `${POKEMON_API}&offset=${(page - 1) * 20}`, page }));
   };
 
   const handleSearchChange = (event) => {
